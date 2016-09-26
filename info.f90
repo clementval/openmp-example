@@ -6,14 +6,12 @@ integer :: i
 
 print*,'Max threads=',omp_get_max_threads()
 
-!$OMP PARALLEL PRIVATE(tid,nthreads)
-!$OMP DO SCHEDULE(DYNAMIC,10)
+!$OMP PARALLEL DO PRIVATE(tid,nthreads)
 DO i = 1, 100
   tid = omp_get_thread_num()
   nthreads = omp_get_num_threads()
-  print*, nthreads, tid
+  print*,'I am thread ', tid, ', I do iteration ', i
 END DO
-!$OMP END DO
-!$OMP END PARALLEL
+!$OMP END PARALLEL DO
 
 end program info_openmp

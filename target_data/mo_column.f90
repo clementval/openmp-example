@@ -11,7 +11,8 @@ CONTAINS
   INTEGER :: proma
 
   !$omp target
-  !$omp parallel do
+  !$omp teams num_teams(8)
+  !$omp distribute
   DO proma = 1 , nproma , 1
    c = 5.345
    DO k = 2 , nz , 1
@@ -20,6 +21,8 @@ CONTAINS
    END DO
    q ( proma , nz ) = q ( proma , nz ) * c
   END DO
+  !$omp end distribute
+  !$omp end teams
   !$omp end target
  END SUBROUTINE compute_column
 

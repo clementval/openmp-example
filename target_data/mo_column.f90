@@ -10,7 +10,6 @@ CONTAINS
   INTEGER , INTENT(IN) :: nproma
   INTEGER :: proma
 
-  !$omp target data map(tofrom: q,t)
   !$omp target
   !$omp parallel do
   DO proma = 1 , nproma , 1
@@ -22,7 +21,6 @@ CONTAINS
    q ( proma , nz ) = q ( proma , nz ) * c
   END DO
   !$omp end target
-  !$omp end target data
  END SUBROUTINE compute_column
 
 END MODULE mo_column

@@ -20,11 +20,12 @@ int main() {
   std::cout << "DEFAULT DEVICE: " << default_device << std::endl;
 
   int initial_device = omp_get_initial_device();
+  std::cout << "INITIAL DEVICE: " << initial_device << std::endl;
 
   assert(omp_target_is_present(a, default_device) == 0);
   void *a_dptr = omp_target_alloc(sizeof(float) * N, default_device);
   omp_target_associate_ptr(a, a_dptr, sizeof(float) * N, 0, default_device);
-  assert(omp_target_is_present(a, default_device) != 1);
+  assert(omp_target_is_present(a, default_device) != 0);
 
   omp_target_memcpy(a_dptr, a, sizeof(float) * N, 0, 0, default_device,
                     initial_device);
